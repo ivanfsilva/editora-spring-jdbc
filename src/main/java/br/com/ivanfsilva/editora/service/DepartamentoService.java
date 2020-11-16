@@ -38,6 +38,6 @@ public class DepartamentoService {
     }
 
     public List<Departamento> findAll() {
-        dao.findAll();
+        return dao.findAll();
     }
 }
