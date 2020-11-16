@@ -13,8 +13,8 @@ import java.util.List;
 public class DepartamentoDao extends GenericDao<Departamento> {
 
     @Autowired
-    public DepartamentoDao(DataSource dataSource, Class Departamento) {
-        super(dataSource, Departamento);
+    public DepartamentoDao(DataSource dataSource) {
+        super(dataSource, Departamento.class);
     }
 
     @Override

@@ -15,12 +15,14 @@
     <title>Departamentos</title>
 </head>
 <body>
-    <form:form modelAttribute="" action="" method="post">
+    <c:url var="save" value="/departamento/save" />
+    <form:form modelAttribute="departamento" action="${save}" method="post">
+        <form:hidden path="idDepartamento" />
         <fieldset style="width: 300px; margin: 0 auto;">
             <legend>Departamento</legend>
             <div>
                 <form:label path="departamento">Departamento</form:label><br>
-                <form:input path="departamento" type="text" name="departamento" />
+                <form:input path="departamento" type="text" name="departamento" required="true" />
             </div>
             <br>
             <div>
@@ -38,17 +40,19 @@
                 <th>Descrição</th>
                 <th>Ação</th>
             </tr>
-            <c:forEach var="d" items="departamentos" varStatus="i">
-            <tr>
-                <td>Id</td>
-                <td>Departamento</td>
-                <td>
-                    <a href="#" title="Ver/Editar">&#9445;</a>
-                    <a href=""# title="Delete">&#9447</a>
-                </td>
-            </tr>
+            <c:forEach var="d" items="${ departamentos }" varStatus="i">
+                <tr bgcolor="${ i.count % 2 != 0 ? '#f1f1f1' : 'white' }">
+                    <td>${ d.idDepartamento }</td>
+                    <td>${ d.departamento }</td>
+                    <td>
+                        <c:url var="update" value="/departamento/update/${ d.idDepartamento }" />
+                        <a href="${ update }" title="Ver/Editar">&#9445;</a>
+                        <c:url var="delete" value="/departamento/delete/${ d.idDepartamento }" />
+                        <a href="${ delete }" title="Delete">&#9447</a>
+                    </td>
+                </tr>
+            </c:forEach>
         </table>
-        </c:forEach>
     </fieldset>
 </body>
 </html>
