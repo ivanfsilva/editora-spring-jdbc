@@ -49,7 +49,7 @@ public abstract class GenericDao<T> extends JdbcDaoSupport {
 //    }
 
     protected T findById(String sql, Integer id, RowMapper<T> rowMapper) {
-        return getJdbcTemplate().queryForObject(sql, new BeanPropertyRowMapper<T>(aClass), id);
+        return getJdbcTemplate().queryForObject(sql, rowMapper, id);
     }
 
 //    protected List<T> findAll(String sql) {
