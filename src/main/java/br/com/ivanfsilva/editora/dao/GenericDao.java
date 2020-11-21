@@ -25,6 +25,7 @@ public abstract class GenericDao<T> extends JdbcDaoSupport {
     protected abstract RowMapper<T> rowMapper();
 
     protected NamedParameterJdbcTemplate namedQuery() {
+
         return new NamedParameterJdbcTemplate(getDataSource());
     }
 

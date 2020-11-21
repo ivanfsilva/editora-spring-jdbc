@@ -5,15 +5,15 @@
   Time: 11:14
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta http-equiv="Content-Type" content="text/html" charset=UTF-8>
-    <title>Departamentos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">    <title>Departamentos</title>
 </head>
 <body>
     <c:import url="menu.jsp" />
@@ -39,9 +39,9 @@
         <legend>Departamentos</legend>
         <table style="width: 300px;">
             <tr>
-                <th>CÃ³digo</th>
-                <th>DescriÃ§Ã£o</th>
-                <th>AÃ§Ã£o</th>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Ação</th>
             </tr>
             <c:forEach var="d" items="${ departamentos }" varStatus="i">
                 <tr bgcolor="${ i.count % 2 != 0 ? '#f1f1f1' : 'white' }">
