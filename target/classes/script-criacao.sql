@@ -20,6 +20,10 @@ CREATE TABLE `rh-db`.`cargos` (
     ON UPDATE NO ACTION);
 
 
+ALTER TABLE `rh-db`.`cargos`
+CHANGE COLUMN `cargos` `cargo` VARCHAR(80) NOT NULL ;
+
+
 CREATE TABLE `rh-db`.`enderecos` (
   `id_endereco` INT NOT NULL AUTO_INCREMENT,
   `logradouro` VARCHAR(80) NOT NULL,
