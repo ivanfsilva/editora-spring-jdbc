@@ -7,6 +7,24 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Funcionários</title>
+    <style>
+        .master {
+            width: 960px; margin: 0 auto;
+        }
+
+        .campo {
+            margin-bottom: 1em;
+        }
+
+        .campo input:focus, .campo select:focus {
+            background: #f8f8f8;
+        }
+
+        fieldset.grupo .campo {
+            float: left;
+            margin-right: 2em;
+        }
+    </style>
 </head>
 <body>
 
@@ -47,7 +65,7 @@
                     </form:select>
                 </div>
             </fieldset>
-
+            <br>
             <fieldset class="grupo">
                 <legend> Endereço </legend>
                 <div class='campo'>
@@ -74,8 +92,12 @@
                     <form:label path="endereco.estado">Estado</form:label><br>
                     <form:input path="endereco.estado" type="text" size='30'/>
                 </div>
+                <div class='campo'>
+                    <form:label path="endereco.cep">Cep</form:label><br>
+                    <form:input path="endereco.cep" type="text" size='30'/>
+                </div>
             </fieldset>
-
+            <br>
             <div>
                 <input type="submit" value="Salvar">
                 <input type="reset" value="Limpa">
@@ -99,7 +121,7 @@
         <c:forEach var="f" items="${funcionarios}" varStatus="i">
             <tr bgcolor='${i.count % 2 != 0 ? '#f1f1f1' : 'white'}'>
                 <td> ${f.idFuncionario} </td>
-                <td> ${f.Nome}</td>
+                <td> ${f.nome}</td>
                 <td> ${f.salario}</td>
                 <td> ${f.dataEntrada}</td>
                 <td> ${f.dataSaida}</td>

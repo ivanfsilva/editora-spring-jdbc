@@ -13,9 +13,9 @@ public class EnderecoService {
     @Autowired
     private EnderecoDao dao;
 
-    public Endereco save(Endereco endereco) {
+    public Endereco saveOrUpdate(Endereco endereco) {
         if (endereco.getIdEndereco() == null) {
-            endereco = dao.save(endereco);
+            dao.save(endereco);
         } else {
             dao.update(endereco);
         }

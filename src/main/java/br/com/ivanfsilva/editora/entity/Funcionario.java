@@ -1,13 +1,22 @@
 package br.com.ivanfsilva.editora.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import java.time.LocalDate;
 
 public class Funcionario {
 
     private Integer idFuncionario;
     private String nome;
+
+    @DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
     private LocalDate dataEntrada;
+    @DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
     private LocalDate dataSaida;
+    @NumberFormat(style = Style.CURRENCY, pattern = "###,###.00")
     private Double salario;
 
     private Cargo cargo;
