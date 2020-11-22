@@ -53,6 +53,10 @@ public class CargoController {
         modelAndView.addObject("cargos", cargoService.findAll());
         modelAndView.addObject("departamentos", departamentoService.findAll());
 
+       // System.out.println("************* " + cargo.getCargo() + "************* ");
+       // System.out.println(" ");
+       // System.out.println("************* " + cargo.getDepartamento().toString() + "************* ");
+
         return modelAndView;
     }
 

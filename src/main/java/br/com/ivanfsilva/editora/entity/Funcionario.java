@@ -1,6 +1,5 @@
 package br.com.ivanfsilva.editora.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Funcionario {
@@ -9,7 +8,7 @@ public class Funcionario {
     private String nome;
     private LocalDate dataEntrada;
     private LocalDate dataSaida;
-    private BigDecimal salario;
+    private Double salario;
 
     private Cargo cargo;
     private Endereco endereco;
@@ -46,11 +45,11 @@ public class Funcionario {
         this.dataSaida = dataSaida;
     }
 
-    public BigDecimal getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(BigDecimal salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 

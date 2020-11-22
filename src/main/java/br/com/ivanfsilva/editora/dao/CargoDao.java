@@ -37,17 +37,14 @@ public class CargoDao extends GenericDao<Cargo> {
     protected RowMapper<Cargo> rowMapper() {
 
         return new RowMapper<Cargo>() {
-
             public Cargo mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Cargo cargo = new Cargo();
-                cargo.setIdCargo(rs.getInt("id_cargo"));
-                cargo.setCargo(rs.getString("cargo"));
+                cargo.setIdCargo(rs.getInt("ID_CARGO"));
+                cargo.setCargo(rs.getString("CARGO"));
 
-                Integer id = rs.getInt("id_cargo");
-
+                Integer id = rs.getInt("ID_DEPARTAMENTO");
                 Departamento departamento = departamentoDao.findById(id);
                 cargo.setDepartamento(departamento);
-
                 return cargo;
             }
         };
@@ -61,7 +58,9 @@ public class CargoDao extends GenericDao<Cargo> {
     }
 
     public int update(Cargo cargo) {
-        String sql = "UPDATE cargos SET cargo = :cargo, id_departamento = :idDepartamento WHERE id_cargo = :idCargo";
+        String sql = "UPDATE cargos " +
+                "SET cargo = :cargo, id_departamento = :idDepartamento " +
+                "WHERE id_cargo = :idCargo";
 
         return super.update(sql,parameterSource(cargo));
     }
