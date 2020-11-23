@@ -9,6 +9,12 @@ import java.time.LocalDate;
 
 public class FuncionarioValidator implements Validator  {
 
+    private EnderecoValidator enderecoValidator;
+
+    public FuncionarioValidator(EnderecoValidator enderecoValidator) {
+        this.enderecoValidator = enderecoValidator;
+    }
+
     @Override
     public boolean supports(Class<?> clazz) {
         return Funcionario.class.equals(clazz);
@@ -51,5 +57,7 @@ public class FuncionarioValidator implements Validator  {
         if (f.getCargo() == null) {
             errors.rejectValue("cargo", "erroer.cargo", "O campo cargo é obrigatório");
         }
+
+        ValidationUtils.invokeValidator(enderecoValidator, f.getEndereco(), errors);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.ivanfsilva.editora.web.controller;
 
+import br.com.ivanfsilva.editora.web.validator.EnderecoValidator;
 import br.com.ivanfsilva.editora.web.validator.FuncionarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class FuncionarioController {
     @InitBinder
     protected void initBinder(ServletRequestDataBinder binder) {
         binder.registerCustomEditor(Cargo.class, new CargoEditorSupport(cargoService));
-        binder.addValidators(new FuncionarioValidator());
+        binder.addValidators(new FuncionarioValidator(new EnderecoValidator()));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
