@@ -1,9 +1,12 @@
 package br.com.ivanfsilva.editora.web.controller;
 
+import br.com.ivanfsilva.editora.web.validator.FuncionarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.log4j.Logger;
 
 import br.com.ivanfsilva.editora.entity.Cargo;
 import br.com.ivanfsilva.editora.entity.Funcionario;
@@ -23,6 +27,8 @@ import br.com.ivanfsilva.editora.web.editor.CargoEditorSupport;
 @RequestMapping("funcionario")
 public class FuncionarioController {
 
+    private static Logger logger = Logger.getLogger(FuncionarioController.class);
+
     @Autowired
     private FuncionarioService funcionarioService;
     @Autowired
@@ -33,6 +39,7 @@ public class FuncionarioController {
     @InitBinder
     protected void initBinder(ServletRequestDataBinder binder) {
         binder.registerCustomEditor(Cargo.class, new CargoEditorSupport(cargoService));
+        binder.addValidators(new FuncionarioValidator());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -46,11 +53,25 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = "/save")
-    public String save(@ModelAttribute("funcionario") Funcionario funcionario) {
+    public ModelAndView save(@ModelAttribute("funcionario") @Validated Funcionario funcionario,
+                       BindingResult result, ModelMap model) {
 
-        funcionarioService.saveOrUpdate(funcionario);
+        if (result.hasErrors()) {
+            logger.warn("Foram encontrados campos inválidos!");
+            model.addAttribute("funcionarios", funcionarioService.findAll());
+            model.addAttribute("cargos", cargoService.findAll());
+            return new ModelAndView("addFuncionario", model);
+        }
 
-        return "redirect:/funcionario/add";
+        try {
+            logger.info("executando saveOrUpdate para funcionário!");
+            funcionarioService.saveOrUpdate(funcionario);
+            logger.info("Operação realizada com sucesso para funcionário id " + funcionario.getIdFuncionario());
+        } catch (Exception ex) {
+            logger.error("Um erro ao inserir / alterar um funcionário", ex);
+        }
+
+        return new ModelAndView("redirect:/funcionario/add");
     }
 
     @RequestMapping(value = "/update/{id}")

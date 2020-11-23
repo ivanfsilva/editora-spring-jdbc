@@ -22,6 +22,7 @@
 <fieldset class='master'>
     <c:url var="save" value="/funcionario/save"/>
     <form:form modelAttribute="funcionario" action="${save}" method="post" >
+        <form:errors cssClass="errorBlock" path="*" element="div"/>
         <form:hidden path="idFuncionario"/>
             <fieldset class='grupo'>
                 <legend> Funcionário </legend>
