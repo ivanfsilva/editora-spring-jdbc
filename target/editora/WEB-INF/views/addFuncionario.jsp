@@ -9,45 +9,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Funcionários</title>
-    <style>
-        .master {
-            width: 960px; margin: 0 auto;
-        }
+    <link rel="stylesheet" type="text/css" href=" <c:url value="/css/style.css" /> ">
+    <script type="application/javascript" src="<c:url value="/js/functions.js" /> ">
 
-        .campo {
-            margin-bottom: 1em;
-        }
-
-        .campo input:focus, .campo select:focus {
-            background: #f8f8f8;
-        }
-
-        fieldset.grupo .campo {
-            float: left;
-            margin-right: 2em;
-        }
-    </style>
-    <script type="application/javascript">
-        function localizarPorCargo() {
-            var id = document.getElementById('cargo');
-            var value = id.options[id.selectedIndex].value;
-
-            if (value == '') {
-                window.location = 'http://localhost:8080/editora_war/funcionario/add';
-            } else {
-                window.location = 'http://localhost:8080/editora_war/funcionario/find/cargo/' + value;
-            }
-        }
-
-        function localizarPorNome() {
-            var value = document.getElementById('nome').value;
-
-            if (value == '') {
-                window.location = 'http://localhost:8080/editora_war/funcionario/add';
-            } else {
-                window.location = 'http://localhost:8080/editora_war/funcionario/find/nome/' + value;
-            }
-        }
     </script>
 
 </head>
