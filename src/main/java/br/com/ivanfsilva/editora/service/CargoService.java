@@ -32,4 +32,15 @@ public class CargoService {
     public List<Cargo> findAll() {
         return dao.findAll();
     }
+
+    public int getTotalPages(int size) {
+        int count = dao.getJdbcTemplate()
+                .queryForObject("SELECT count(*) FROM cargos", Integer.class);
+
+        return (int) Math.ceil( new Double(count) / new Double(size) );
+    }
+    public List<Cargo> findByPage(int page, int size) {
+
+        return dao.findByPage( (page - 1) * size, size);
+    }
 }
