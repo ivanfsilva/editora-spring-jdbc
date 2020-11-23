@@ -2,6 +2,7 @@ package br.com.ivanfsilva.editora.web.controller;
 
 import br.com.ivanfsilva.editora.entity.Departamento;
 import br.com.ivanfsilva.editora.service.DepartamentoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,11 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("departamento")
 public class DepartamentoController {
 
+    private static Logger logger = Logger.getLogger(DepartamentoController.class);
+
     @Autowired
     private DepartamentoService service;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView findAll(@ModelAttribute("departamento")Departamento departamento, ModelMap model) {
+        logger.info("Acesso realizado ao departamento controller!");
+
         model.addAttribute("departamentos", service.findAll());
         return new ModelAndView("addDepartamento", model);
     }
