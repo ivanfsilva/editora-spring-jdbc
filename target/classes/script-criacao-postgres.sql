@@ -81,6 +81,37 @@ TABLESPACE pg_default;
 ALTER TABLE public.cargos
     OWNER to postgres;
 
+
+-- ---------------------------------------------
+
+CREATE TABLE public.funcionarios
+(
+    id_funcionario bigint NOT NULL DEFAULT nextval('funcionarios_sequence'::regclass),
+    nome character varying(500) COLLATE pg_catalog."default",
+    data_entrada date ,
+    data_saida date ,
+    salario numeric(10,4),
+    id_cargo bigint NOT NULL,
+    id_endereco bigint NOT NULL,
+    estado character varying(200) COLLATE pg_catalog."default",
+    CONSTRAINT funcionarios_pkey PRIMARY KEY (id_funcionario),
+    CONSTRAINT cargos_fkey FOREIGN KEY (id_cargo)
+        REFERENCES public.cargos (id_cargo) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT enderecos_fkey FOREIGN KEY (id_endereco)
+        REFERENCES public.enderecos (id_endereco) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE NO ACTION
+)
+    WITH (
+        OIDS = FALSE
+    )
+    TABLESPACE pg_default;
+
+ALTER TABLE public.funcionarios
+    OWNER to postgres;
+
 -- ---------------------------------------------
 
 CREATE TABLE public.enderecos
@@ -104,33 +135,4 @@ ALTER TABLE public.enderecos
     OWNER to postgres;
 
 
--- ---------------------------------------------
-
-CREATE TABLE public.funcionarios
-(
-    id_funcionario bigint NOT NULL DEFAULT nextval('funcionarios_sequence'::regclass),
-    nome character varying(500) COLLATE pg_catalog."default",
-    data_entrada date ,
-    data_saida date ,
-    salario numeric(10,4),
-    id_cargo bigint NOT NULL,
-	id_endereco bigint NOT NULL,
-    estado character varying(200) COLLATE pg_catalog."default",
-	CONSTRAINT funcionarios_pkey PRIMARY KEY (id_funcionario),
-    CONSTRAINT cargos_fkey FOREIGN KEY (id_cargo)
-        REFERENCES public.cargos (id_cargo) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-	CONSTRAINT enderecos_fkey FOREIGN KEY (id_endereco)
-        REFERENCES public.enderecos (id_endereco) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.funcionarios
-    OWNER to postgres;
 

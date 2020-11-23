@@ -47,6 +47,6 @@ CREATE TABLE enderecos (
   CONSTRAINT FK_id_endereco
     FOREIGN KEY (id_endereco)
     REFERENCES enderecos (id_endereco)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION
 );

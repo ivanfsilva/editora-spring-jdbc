@@ -2,6 +2,8 @@
          pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,9 +125,17 @@
             <tr bgcolor='${i.count % 2 != 0 ? '#f1f1f1' : 'white'}'>
                 <td> ${f.idFuncionario} </td>
                 <td> ${f.nome}</td>
-                <td> ${f.salario}</td>
-                <td> ${f.dataEntrada}</td>
-                <td> ${f.dataSaida}</td>
+                <td>
+                    <fmt:formatNumber value="${f.salario}" currencySymbol="R$"
+                        maxFractionDigits="2" pattern="###,###.00" /></td>
+                <td>
+                    <fmt:parseDate var="dtEntrada" value="${f.dataEntrada}" pattern="yyyy-MM-dd" />
+                    <fmt:formatDate value="${dtEntrada}" />
+                </td>
+                <td>
+                    <fmt:parseDate var="dtSaida" value="${f.dataSaida}" pattern="yyyy-MM-dd" />
+                    <fmt:formatDate value="${dtSaida}" />
+                </td>
                 <td> ${f.cargo.cargo}</td>
                 <td>
                     <c:url var="update" value="/funcionario/update/${f.idFuncionario}"></c:url>
