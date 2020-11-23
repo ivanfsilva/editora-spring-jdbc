@@ -67,6 +67,7 @@
             </fieldset>
             <br>
             <fieldset class="grupo">
+                <form:hidden path="endereco.idEndereco"/>
                 <legend> Endereço </legend>
                 <div class='campo'>
                     <form:label path="endereco.logradouro">Logradouro</form:label><br>
