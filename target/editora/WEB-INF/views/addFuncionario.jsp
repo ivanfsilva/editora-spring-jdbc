@@ -27,6 +27,29 @@
             margin-right: 2em;
         }
     </style>
+    <script type="application/javascript">
+        function localizarPorCargo() {
+            var id = document.getElementById('cargo');
+            var value = id.options[id.selectedIndex].value;
+
+            if (value == '') {
+                window.location = 'http://localhost:8080/editora_war/funcionario/add';
+            } else {
+                window.location = 'http://localhost:8080/editora_war/funcionario/find/cargo/' + value;
+            }
+        }
+
+        function localizarPorNome() {
+            var value = document.getElementById('nome').value;
+
+            if (value == '') {
+                window.location = 'http://localhost:8080/editora_war/funcionario/add';
+            } else {
+                window.location = 'http://localhost:8080/editora_war/funcionario/find/nome/' + value;
+            }
+        }
+    </script>
+
 </head>
 <body>
 
@@ -36,35 +59,38 @@
     <c:url var="save" value="/funcionario/save"/>
     <form:form modelAttribute="funcionario" action="${save}" method="post" >
         <form:hidden path="idFuncionario"/>
-        <fieldset class='grupo'>
-            <legend> Funcionário </legend>
-            <div class='campo'>
-                <form:label path="nome">Nome</form:label><br>
-                <form:input path="nome" type="text" size='40'/>
-            </div>
-            <div class='campo'>
-                <form:label path="salario">Salario</form:label><br>
-                <form:input path="salario" type="text" size='20'/>
-            </div>
-            <div class='campo'>
-                <form:label path="dataEntrada">Data de Entrada</form:label><br>
-                <form:input path="dataEntrada" type="date"/>
-            </div>
-            <div class='campo'>
-                <form:label path="dataSaida">Data de Saída</form:label><br>
-                <form:input path="dataSaida" type="date"/>
-            </div>
+            <fieldset class='grupo'>
+                <legend> Funcionário </legend>
+                <div class='campo'>
+                    <form:label path="nome">Nome</form:label><br>
+                    <form:input path="nome" type="text" size='40' id="nome"/>
+                </div>
+                <div class='campo'>
+                    <form:label path="salario">Salario</form:label><br>
+                    <form:input path="salario" type="text" size='20'/>
+                </div>
+                <div class='campo'>
+                    <form:label path="dataEntrada">Data de Entrada</form:label><br>
+                    <form:input path="dataEntrada" type="date"/>
+                </div>
+                <div class='campo'>
+                    <form:label path="dataSaida">Data de Saída</form:label><br>
+                    <form:input path="dataSaida" type="date"/>
+                </div>
+                <input type="button" value="localizar" onclick="localizarPorNome();" />
+            </fieldset>
 
             <fieldset class='grupo'>
                 <legend> Cargo </legend>
                 <div class='campo'>
                     <form:label path="cargo">Cargo</form:label><br>
-                    <form:select path="cargo" required="true">
+                    <form:select id="cargo" path="cargo" required="true">
                         <form:option value="" label="--- Select ---"/>
                         <form:options items="${cargos}"
                                       itemValue="idCargo"
                                       itemLabel="cargo"/>
                     </form:select>
+                    <input type="button" onclick="localizarPorCargo();" value="localizar" />
                 </div>
             </fieldset>
             <br>
@@ -105,7 +131,6 @@
                 <input type="submit" value="Salvar">
                 <input type="reset" value="Limpa">
             </div>
-        </fieldset>
     </form:form>
 </fieldset>
 
@@ -127,10 +152,10 @@
                 <td> ${f.nome}</td>
                 <td>
                     <fmt:formatNumber value="${f.salario}" currencySymbol="R$"
-                        maxFractionDigits="2" pattern="###,###.00" /></td>
+                        maxFractionDigits="2" type="currency" /></td>
                 <td>
                     <fmt:parseDate var="dtEntrada" value="${f.dataEntrada}" pattern="yyyy-MM-dd" />
-                    <fmt:formatDate value="${dtEntrada}" />
+                    <fmt:formatDate value="${dtEntrada}" dateStyle="medium"/>
                 </td>
                 <td>
                     <fmt:parseDate var="dtSaida" value="${f.dataSaida}" pattern="yyyy-MM-dd" />

@@ -2,6 +2,7 @@ package br.com.ivanfsilva.editora.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -68,5 +69,29 @@ public class FuncionarioController {
         enderecoService.delete(f.getEndereco().getIdEndereco());
 
         return "redirect:/funcionario/add";
+    }
+
+    @RequestMapping(value = "/find/cargo/{idCargo}", method = RequestMethod.GET)
+    public ModelAndView findByCargo(
+            @PathVariable("idCargo") Integer idCargo,
+            @ModelAttribute("funcionario") Funcionario funcionario,
+            ModelMap model) {
+
+        model.addAttribute("funcionarios", funcionarioService.findByCargo(idCargo));
+        model.addAttribute("cargos", cargoService.findAll());
+
+        return new ModelAndView("addFuncionario", model);
+    }
+
+    @RequestMapping(value = "/find/nome/{nome}", method = RequestMethod.GET)
+    public ModelAndView findByNome(
+            @PathVariable("nome") String nome,
+            @ModelAttribute("funcionario") Funcionario funcionario,
+            ModelMap model) {
+
+        model.addAttribute("funcionarios", funcionarioService.findByNome(nome));
+        model.addAttribute("cargos", cargoService.findAll());
+
+        return new ModelAndView("addFuncionario", model);
     }
 }

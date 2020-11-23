@@ -107,4 +107,22 @@ public class FuncionarioDao extends GenericDao<Funcionario> {
         String sql = "SELECT * FROM funcionarios";
         return super.findAll(sql, rowMapper());
     }
+
+    public List<Funcionario> findByCargo(Integer idCargo) {
+        String sql = "SELECT * FROM funcionarios WHERE id_cargo = :idCargo";
+
+        return namedQuery().query(
+                sql,
+                new MapSqlParameterSource("idCargo", idCargo),
+                rowMapper());
+    }
+
+    public List<Funcionario> findByNome(String nome) {
+        String sql = "SELECT * FROM funcionarios WHERE nome LIKE :nome";
+
+        return namedQuery().query(
+                sql,
+                new MapSqlParameterSource("nome", "%" + nome + "%"),
+                rowMapper());
+    }
 }
