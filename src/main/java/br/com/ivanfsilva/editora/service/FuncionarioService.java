@@ -7,8 +7,11 @@ import br.com.ivanfsilva.editora.entity.Endereco;
 import br.com.ivanfsilva.editora.entity.Funcionario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class FuncionarioService {
 
     @Autowired
@@ -32,10 +35,12 @@ public class FuncionarioService {
         dao.delete(id);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Funcionario findById(Integer id) {
         return dao.findById(id);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Funcionario> findAll() {
         return dao.findAll();
     }

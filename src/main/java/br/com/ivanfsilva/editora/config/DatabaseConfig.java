@@ -8,12 +8,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("br.com.ivanfsilva.editora.config")
 @PropertySource("classpath:datasource.properties")
+@EnableTransactionManagement
 public class DatabaseConfig {
 
     @Value("${spring.datasource.url}")
@@ -24,6 +28,8 @@ public class DatabaseConfig {
     private String password;
     @Value("${spring.datasource.driverClassName}")
     private String driverClassName;
+
+    private DataSource dataSource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySource() {
@@ -38,12 +44,17 @@ public class DatabaseConfig {
         ds.setUrl(url);
         ds.setDriverClassName(driverClassName);
 
-        return ds;
+        return this.dataSource = ds;
     }
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(this.dataSource);
     }
 
 }
