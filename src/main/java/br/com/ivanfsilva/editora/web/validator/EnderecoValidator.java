@@ -14,32 +14,26 @@ public class EnderecoValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(
-                errors, "endereco.logradouro",
-                "error.logradouro", "O campo Logradouro é obrigatório");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.logradouro",
+                "error.logradouro");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.bairro",
+                "error.bairro");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.cidade",
+                "error.cidade");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.estado",
+                "error.estado");
 
         ValidationUtils.rejectIfEmptyOrWhitespace(
-                errors, "endereco.bairro",
-                "error.bairro", "O campo Bairro é obrigatório");
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(
-                errors, "endereco.cidade",
-                "error.cidade", "O campo cidade é obrigatório");
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(
-                errors, "endereco.estado",
-                "error.estado", "O campo estado é obrigatório");
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(
-                errors, "endereco.cep",
-                "error.cep", "O campo cep é obrigatório");
+                errors, "endereco.cep","error.cep");
 
         Endereco e = (Endereco) target;
 
         if (e.getNumero() == null) {
             // if (e.getNumero() < 0) {
-            errors.rejectValue("endereco.numero", "error.numero",
-                    "O campo número é obrigatório!");
+            errors.rejectValue("endereco.numero", "error.numero");
             // }
         }
 

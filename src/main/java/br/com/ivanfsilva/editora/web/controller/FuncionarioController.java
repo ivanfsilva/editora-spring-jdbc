@@ -1,5 +1,7 @@
 package br.com.ivanfsilva.editora.web.controller;
 
+import br.com.ivanfsilva.editora.web.editor.StringToDoubleEditorSupport;
+import br.com.ivanfsilva.editora.web.editor.StringToIntegerEditorSupport;
 import br.com.ivanfsilva.editora.web.validator.EnderecoValidator;
 import br.com.ivanfsilva.editora.web.validator.FuncionarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,7 @@ public class FuncionarioController {
     @InitBinder
     protected void initBinder(ServletRequestDataBinder binder) {
         binder.registerCustomEditor(Cargo.class, new CargoEditorSupport(cargoService));
+        binder.registerCustomEditor(Double.class, "salario", new StringToDoubleEditorSupport());
         binder.addValidators(new FuncionarioValidator(new EnderecoValidator()));
     }
 

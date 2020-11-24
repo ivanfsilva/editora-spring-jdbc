@@ -18,9 +18,13 @@ public class WebXmlConfig implements WebApplicationInitializer {
         webContext.register(MvcConfig.class);
         webContext.setServletContext(servletContext);
 
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(webContext);
+
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+
         ServletRegistration.Dynamic reDynamic =
                 servletContext.addServlet("dispacher",
-                        new DispatcherServlet(webContext));
+                        dispatcherServlet);
 
         reDynamic.setLoadOnStartup(1);
         reDynamic.addMapping("/");
